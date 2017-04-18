@@ -122,9 +122,9 @@ def main():
     decoder = ArgMaxDecoder(labels)
     if args.cuda:
         model = torch.nn.DataParallel(model).cuda()
-    print(model)
 
     if args.continue_from:
+        print("Loading checkpoint model %s" % args.continue_from)
         package = torch.load(args.continue_from)
         model.load_state_dict(package['state_dict'])
         optimizer.load_state_dict(package['optim_dict'])
@@ -132,6 +132,7 @@ def main():
     else:
         start_epoch = 0
 
+    print(model)
     batch_time = AverageMeter()
     data_time = AverageMeter()
     losses = AverageMeter()
