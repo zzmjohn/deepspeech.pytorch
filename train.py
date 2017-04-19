@@ -215,9 +215,10 @@ def main():
             if args.checkpoint_per_batch > 0 and i > 0 and i % args.checkpoint_per_batch == 0:
                 file_path = '%s/deepspeech_checkpoint_epoch_%d_iter_%d.pth.tar' % (save_folder, epoch, i)
                 print("Saving checkpoint model to %s" % file_path)
-                torch.save(checkpoint(model, optimizer, args, len(labels), epoch, loss_results=loss_results,
-                                      wer_results=wer_results, cer_results=cer_results),
-                           file_path)
+                torch.save(
+                    checkpoint(model, optimizer, args, len(labels), epoch, iteration=i, loss_results=loss_results,
+                               wer_results=wer_results, cer_results=cer_results),
+                    file_path)
         avg_loss /= len(train_loader)
 
         if start_iter != 0:
