@@ -164,6 +164,8 @@ def main():
         end = time.time()
         avg_loss = 0
         for i, (data) in enumerate(train_loader, start=start_iter):
+            if i == len(train_loader):
+                break
             inputs, targets, input_percentages, target_sizes = data
             # measure data loading time
             data_time.update(time.time() - end)
@@ -201,6 +203,9 @@ def main():
             torch.nn.utils.clip_grad_norm(model.parameters(), args.max_norm)
             # SGD step
             optimizer.step()
+
+            if args.cuda:
+                torch.cuda.synchronize()
 
             # measure elapsed time
             batch_time.update(time.time() - end)
