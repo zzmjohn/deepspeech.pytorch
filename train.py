@@ -84,6 +84,7 @@ def main():
     args = parser.parse_args()
     save_folder = args.save_folder
 
+    loss_results, cer_results, wer_results = None, None, None
     if args.visdom:
         from visdom import Visdom
         viz = Visdom()
