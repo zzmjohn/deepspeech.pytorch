@@ -137,10 +137,10 @@ def main():
         package = torch.load(args.continue_from)
         model.load_state_dict(package['state_dict'])
         optimizer.load_state_dict(package['optim_dict'])
-        start_epoch = package.get('epoch', -1) + 1
-        start_iter = package.get('iteration', -1) + 1
+        start_epoch = int(package.get('epoch', -1)) + 1
+        start_iter = int(package.get('iteration', -1)) + 1
         if args.visdom and package['loss_results']:  # Add previous scores to visdom graph
-            epoch = package['epoch'] + 1
+            epoch = int(package['epoch']) + 1
             loss_results, cer_results, wer_results = package['loss_results'], package['cer_results'], package[
                 'wer_results']
             x_axis = epochs[0:epoch]
